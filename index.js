@@ -16,7 +16,8 @@ async function main () {
   canon.initPlayer(PLAYERLIMIT.left, MAXLIFE, PLAYERLIMIT.left, PLAYERLIMIT.right, map);
   canon.playerControl(map);
   while (true) {
-    console.log(map);
+    // console.log(map);
+    board.printBoard(map);
     await sleep(REFRESHRATE);
     console.clear();
   }
