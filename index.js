@@ -22,9 +22,9 @@ async function main() {
   playerControl(map);
   while (true) {
     moveUfo(ufoArr, map);
-    printBoard(map);
     putBulletinmatrix(map);
     mothershipInit(map);
+    printBoard(map);
     await sleep(REFRESHRATE);
   }
 }
