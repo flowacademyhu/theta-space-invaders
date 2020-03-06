@@ -11,6 +11,7 @@ const sleep = (ms) => {
 };
 
 async function main() {
+  let move = 0;
   const map = generateBoard();
   initPlayer(map);
   initBunker1(map);
@@ -20,11 +21,16 @@ async function main() {
   startUfo(ufoArr, map);
   playerControl(map);
   while (true) {
-    moveUfo(ufoArr, map);
+    if (move === 3) {
+      moveUfo(ufoArr, map);
+      mothershipInit(map);
+      move = 0;
+    } else {
+      move++;
+    }
     ufoShoot(ufoArr, map);
     printBoard(map);
     putBulletinmatrix(map);
-    mothershipInit(map);
     printBoard(map);
     await sleep(REFRESHRATE);
   }
