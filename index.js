@@ -10,7 +10,7 @@ const sleep = (ms) => {
   return new Promise(resolve => setTimeout(resolve, ms));
 };
 
-async function main() {
+async function main () {
   const map = generateBoard();
   initPlayer(map);
   initBunker1(map);
@@ -22,7 +22,6 @@ async function main() {
   while (true) {
     moveUfo(ufoArr, map);
     ufoShoot(ufoArr, map);
-    printBoard(map);
     putBulletinmatrix(map);
     mothershipInit(map);
     printBoard(map);
