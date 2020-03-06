@@ -10,8 +10,9 @@ const sleep = (ms) => {
   return new Promise(resolve => setTimeout(resolve, ms));
 };
 
-async function main() {
-  let move = 0;
+async function main () {
+  let ufoCycle = 0;
+  let mothershipCycle = 0;
   const map = generateBoard();
   initPlayer(map);
   initBunker1(map);
@@ -21,15 +22,17 @@ async function main() {
   startUfo(ufoArr, map);
   playerControl(map);
   while (true) {
-    if (move === 3) {
+    if (ufoCycle === 4) {
       moveUfo(ufoArr, map);
-      mothershipInit(map);
-      move = 0;
-    } else {
-      move++;
+      ufoCycle = 0;
     }
+    if (mothershipCycle === 3) {
+      mothershipInit(map);
+      mothershipCycle = 0;
+    }
+    ufoCycle++;
+    mothershipCycle++;
     ufoShoot(ufoArr, map);
-    printBoard(map);
     putBulletinmatrix(map);
     printBoard(map);
     await sleep(REFRESHRATE);
