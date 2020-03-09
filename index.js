@@ -3,14 +3,16 @@ const { initPlayer, playerControl } = require('./lib/units/canon');
 const { initBunker1, initBunker2, initBunker3 } = require('./lib/units/bunker');
 const { REFRESHRATE } = require('./lib/constants');
 const { mothershipInit } = require('./lib/units/mothership');
-const { genUfo, startUfo, moveUfo, ufoShoot } = require('./lib/units/ufo');
+const { genUfo, startUfo, moveUfo, ufoShoot, moveUfoBullet } = require('./lib/units/ufo');
 const { putBulletinmatrix } = require('./lib/units/shoot');
 
 const sleep = (ms) => {
   return new Promise(resolve => setTimeout(resolve, ms));
 };
 
-async function main() {
+async function main () {
+  let ufoCycle = 0;
+  let mothershipCycle = 0;
   const map = generateBoard();
   initPlayer(map);
   initBunker1(map);
@@ -20,11 +22,19 @@ async function main() {
   startUfo(ufoArr, map);
   playerControl(map);
   while (true) {
-    moveUfo(ufoArr, map);
+    if (ufoCycle === 4) {
+      moveUfo(ufoArr, map);
+      ufoCycle = 0;
+    }
+    if (mothershipCycle === 3) {
+      mothershipInit(map);
+      mothershipCycle = 0;
+    }
+    moveUfoBullet(map);
+    ufoCycle++;
+    mothershipCycle++;
     ufoShoot(ufoArr, map);
-    printBoard(map);
     putBulletinmatrix(map);
-    mothershipInit(map);
     printBoard(map);
     await sleep(REFRESHRATE);
   }
