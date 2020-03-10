@@ -1,7 +1,7 @@
 const { generateBoard, printBoard } = require('./lib/board/board');
 const { initPlayer, playerControl } = require('./lib/units/canon');
 const { initBunkers } = require('./lib/units/bunker');
-const { REFRESHRATE } = require('./lib/constants');
+const { REFRESHRATE, UFOPOS } = require('./lib/constants');
 const { mothershipInit } = require('./lib/units/mothership');
 const { genUfo, startUfo, moveUfo, ufoShoot, moveUfoBullet } = require('./lib/units/ufo');
 const { putBulletinmatrix } = require('./lib/units/shoot');
@@ -20,11 +20,11 @@ async function main () {
   startUfo(ufoArr, map);
   playerControl(map);
   while (true) {
-    if (ufoCycle === 4) {
+    if (ufoCycle === UFOPOS.speed) {
       moveUfo(ufoArr, map);
       ufoCycle = 0;
     }
-    if (mothershipCycle === 3) {
+    if (mothershipCycle === 7) {
       mothershipInit(map);
       mothershipCycle = 0;
     }
