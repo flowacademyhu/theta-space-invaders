@@ -1,3 +1,8 @@
 mike 2345
+anka 600
 jack 324
 bob 123
+
+n 240
+
+asd 0
